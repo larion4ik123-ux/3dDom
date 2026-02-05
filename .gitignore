@@ -1,0 +1,20 @@
+# Архивы для деплоя
+*.zip
+
+# Системные файлы Windows
+Thumbs.db
+Desktop.ini
+
+# Системные файлы macOS
+.DS_Store
+
+# Редакторы
+.vscode/
+.idea/
+
+# Логи
+*.log
+
+# Временные файлы
+*.tmp
+*.temp
