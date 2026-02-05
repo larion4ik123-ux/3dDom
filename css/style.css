@@ -2567,3 +2567,422 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.95rem;
     letter-spacing: 0.2px;
 }
+
+/* ============================================
+   Улучшенная мобильная адаптация
+   ============================================ */
+
+/* Планшеты */
+@media (max-width: 992px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .hero-full {
+        min-height: 60vh;
+    }
+    
+    .step-image,
+    .advantage-image,
+    .level-image {
+        min-height: 320px;
+        max-height: 50vh;
+    }
+    
+    .gallery-main-image {
+        min-height: 320px;
+        max-height: 50vh;
+    }
+    
+    .link-card .link-image,
+    .link-image {
+        min-height: 280px;
+        max-height: 380px;
+    }
+    
+    .finishing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    .block {
+        padding: 3rem 0;
+    }
+    
+    /* Hero на мобильных */
+    .hero-full {
+        min-height: 50vh;
+    }
+    
+    .hero-headline {
+        font-size: 1.75rem;
+    }
+    
+    .hero-tagline {
+        font-size: 0.95rem;
+        padding: 0 1rem;
+    }
+    
+    .btn-hero {
+        padding: 0.85rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    /* Навигация: кнопка-бургер видима */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    /* Изображения — полностью видимые, без обрезки */
+    .hero-image {
+        min-height: auto;
+        max-height: none;
+        height: auto;
+        aspect-ratio: 16/10;
+        object-fit: cover;
+    }
+    
+    .step-image,
+    .advantage-image {
+        min-height: auto;
+        max-height: none;
+        height: auto;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+    }
+    
+    .level-image {
+        min-height: auto;
+        max-height: none;
+        height: auto;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+    }
+    
+    .gallery-main-image {
+        min-height: auto;
+        max-height: none;
+        height: auto;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+    }
+    
+    .link-card .link-image,
+    .link-image {
+        min-height: auto;
+        max-height: none;
+        height: auto;
+        aspect-ratio: 16/10;
+        object-fit: cover;
+    }
+    
+    .timeline-image {
+        aspect-ratio: 4/3;
+    }
+    
+    .finishing-image {
+        min-height: auto;
+        max-height: none;
+        height: auto;
+        aspect-ratio: 4/3;
+    }
+    
+    /* Карточки */
+    .card-link-img-wrap {
+        aspect-ratio: 16/10;
+    }
+    
+    .cards-two {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Сетки */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .service-card {
+        padding: 1.5rem;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .custom-advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .finishing-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Заголовки секций */
+    .block-title {
+        font-size: 1.5rem;
+    }
+    
+    .block-caption {
+        font-size: 0.95rem;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+    }
+    
+    /* Этапы */
+    .step-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .step-number {
+        width: 48px;
+        height: 48px;
+        font-size: 1.3rem;
+    }
+    
+    .step-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .step-text h2 {
+        font-size: 1.25rem;
+    }
+    
+    /* Преимущества детальные */
+    .advantage-item-large {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .advantage-text h2 {
+        font-size: 1.35rem;
+    }
+    
+    /* Уровни готовности */
+    .level-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .level-header h2 {
+        font-size: 1.35rem;
+    }
+    
+    .level-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+    
+    /* Проекты */
+    .project-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .project-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .carousel-controls {
+        gap: 1rem;
+    }
+    
+    .carousel-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+    }
+    
+    .gallery-thumbnails {
+        gap: 0.5rem;
+    }
+    
+    .thumbnail {
+        width: 80px;
+        height: 60px;
+    }
+    
+    /* Timeline (индивидуальный проект) */
+    .process-timeline {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .timeline-item {
+        max-width: 100%;
+    }
+    
+    .timeline-content {
+        padding: 1.25rem;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.15rem;
+    }
+    
+    /* Форма */
+    .form-request .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .request-form {
+        padding: 1.5rem;
+    }
+    
+    /* Футер */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    .footer-brand .logo-footer {
+        justify-content: center;
+    }
+    
+    .footer-links ul {
+        text-align: center;
+    }
+    
+    .footer-contact {
+        text-align: center;
+    }
+    
+    /* CTA секция */
+    .cta-section {
+        padding: 3rem 0;
+    }
+    
+    .cta-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Таблица */
+    .table-wrapper {
+        margin: 0 -16px;
+        padding: 0 16px;
+    }
+    
+    table th,
+    table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Маленькие мобильные */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    .block {
+        padding: 2.5rem 0;
+    }
+    
+    .hero-full {
+        min-height: 45vh;
+    }
+    
+    .hero-headline {
+        font-size: 1.5rem;
+    }
+    
+    .hero-tagline {
+        font-size: 0.9rem;
+    }
+    
+    .block-title {
+        font-size: 1.35rem;
+    }
+    
+    .block-head {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Карточки услуг компактнее */
+    .service-card {
+        padding: 1.25rem;
+    }
+    
+    .service-card-num {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .service-card-title {
+        font-size: 1.05rem;
+    }
+    
+    /* Карточки преимуществ */
+    .advantage-card {
+        padding: 1.5rem;
+    }
+    
+    .advantage-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .advantage-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    /* Логотип */
+    .logo-img {
+        height: 36px;
+    }
+    
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    /* Кнопки */
+    .btn-primary {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+    }
+    
+    .btn-large {
+        padding: 0.85rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    /* Секция page-header */
+    .page-header {
+        padding: 2.5rem 0;
+    }
+    
+    .page-header h1,
+    .page-header .block-title {
+        font-size: 1.75rem;
+    }
+    
+    .page-header p {
+        font-size: 0.95rem;
+    }
+}
