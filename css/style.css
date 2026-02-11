@@ -1399,152 +1399,173 @@ table tr:hover {
     background-color: var(--bg-light);
 }
 
-/* Карточки сравнения (3D-печать vs Традиционное) */
-.compare-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    max-width: 820px;
+/* Большая красивая таблица сравнения */
+.comparison-table-large {
+    max-width: 900px;
     margin: 0 auto;
 }
 
-.compare-card {
-    background: var(--bg-white);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 1.75rem 2rem;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+.table-comparison {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--bg-white);
+    box-shadow: 0 8px 32px rgba(12, 74, 110, 0.1), 0 2px 8px rgba(0,0,0,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    border: none;
+    font-size: 1.08rem;
 }
 
-.compare-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+.table-comparison thead tr {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0ea5e9 100%);
 }
 
-.compare-card-label {
+.table-comparison th {
+    padding: 1.6rem 2rem;
+    color: #fff;
     font-family: var(--font-heading);
+    font-weight: 700;
     font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    border-bottom: none;
+    text-transform: none;
+}
+
+.table-comparison .th-param {
+    width: 30%;
+    text-align: left;
+}
+
+.table-comparison .th-3d {
+    width: 35%;
+    text-align: left;
+    background: rgba(255,255,255,0.1);
+    border-left: 1px solid rgba(255,255,255,0.15);
+    border-right: 1px solid rgba(255,255,255,0.15);
+}
+
+.table-comparison .th-trad {
+    width: 35%;
+    text-align: left;
+}
+
+.table-comparison td {
+    padding: 1.4rem 2rem;
+    border-bottom: 1px solid #e8f4fd;
+    vertical-align: middle;
+    line-height: 1.5;
+    transition: background-color 0.2s ease;
+}
+
+.table-comparison tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-comparison tbody tr:nth-child(even) {
+    background-color: #f0f9ff;
+}
+
+.table-comparison tbody tr:hover {
+    background-color: #e0f2fe;
+}
+
+.table-comparison .td-param {
     font-weight: 700;
     color: var(--text-dark);
-    margin-bottom: 1.25rem;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
     letter-spacing: 0.01em;
 }
 
-.compare-card-row {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 1.25rem;
-    align-items: center;
-}
-
-.compare-val {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    padding: 1rem 1.25rem;
-    border-radius: var(--radius-sm);
-}
-
-.compare-val--good {
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-    border-left: 3px solid var(--primary-color);
-}
-
-.compare-val--neutral {
-    background: #f8fafc;
-    border-left: 3px solid #cbd5e1;
-}
-
-.compare-tag {
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-.compare-val--good .compare-tag {
+.table-comparison .td-good {
     color: var(--primary-color);
-}
-
-.compare-val--neutral .compare-tag {
-    color: #94a3b8;
-}
-
-.compare-text {
-    font-size: 1.05rem;
     font-weight: 600;
-    line-height: 1.4;
+    padding-left: 3.2rem;
+    position: relative;
 }
 
-.compare-val--good .compare-text {
-    color: var(--text-dark);
-}
-
-.compare-val--neutral .compare-text {
-    color: var(--text-light);
-}
-
-.compare-vs {
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
+.table-comparison .td-good::before {
+    content: "\2713";
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(135deg, #0c4a6e, #0ea5e9);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.65rem;
     font-weight: 700;
-    color: #94a3b8;
-    letter-spacing: 0.1em;
-    text-align: center;
-    flex-shrink: 0;
+    line-height: 1;
+    box-shadow: 0 2px 6px rgba(14, 165, 233, 0.3);
 }
 
-/* Мобильная адаптация карточек сравнения */
+.table-comparison .td-neutral {
+    color: var(--text-light);
+    font-weight: 400;
+}
+
+/* Мобильная адаптация таблицы */
 @media (max-width: 768px) {
-    .compare-card {
-        padding: 1.25rem;
+    .comparison-table-large {
+        max-width: 100%;
     }
     
-    .compare-card-label {
-        font-size: 1rem;
-        margin-bottom: 1rem;
+    .table-comparison {
+        font-size: 0.9rem;
+        border-radius: 12px;
     }
     
-    .compare-card-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
+    .table-comparison th {
+        padding: 1rem 0.75rem;
+        font-size: 0.9rem;
     }
     
-    .compare-vs {
-        display: none;
+    .table-comparison td {
+        padding: 1rem 0.75rem;
     }
     
-    .compare-val {
-        padding: 0.75rem 1rem;
+    .table-comparison .td-good {
+        padding-left: 2.2rem;
     }
     
-    .compare-text {
-        font-size: 0.95rem;
+    .table-comparison .td-good::before {
+        left: 0.75rem;
+        width: 18px;
+        height: 18px;
+        font-size: 0.55rem;
+    }
+    
+    .table-comparison .td-param {
+        font-size: 0.9rem;
     }
 }
 
 @media (max-width: 480px) {
-    .compare-cards {
-        gap: 1rem;
+    .table-comparison th {
+        padding: 0.85rem 0.5rem;
+        font-size: 0.8rem;
     }
     
-    .compare-card {
-        padding: 1rem;
+    .table-comparison td {
+        padding: 0.85rem 0.5rem;
+        font-size: 0.8rem;
     }
     
-    .compare-card-label {
-        font-size: 0.95rem;
-        margin-bottom: 0.75rem;
+    .table-comparison .td-good {
+        padding-left: 1.8rem;
     }
     
-    .compare-val {
-        padding: 0.6rem 0.75rem;
-    }
-    
-    .compare-text {
-        font-size: 0.9rem;
+    .table-comparison .td-good::before {
+        left: 0.5rem;
+        width: 16px;
+        height: 16px;
+        font-size: 0.5rem;
     }
 }
 
