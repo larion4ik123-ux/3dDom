@@ -22,7 +22,9 @@
     --success-color: #0d9488;
     --error-color: #dc2626;
     --font-main: 'Manrope', 'Segoe UI', system-ui, sans-serif;
-    --font-heading: 'Jost', 'Manrope', 'Segoe UI', sans-serif;
+    --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --bg-dark: #0c1a2e;
+    --bg-dark-alt: #112240;
     --container-max-width: 1200px;
     --container-wide: 1400px;
     --spacing-unit: 1rem;
@@ -2665,6 +2667,310 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-dark);
     font-size: 0.95rem;
     letter-spacing: 0.2px;
+}
+
+/* ============================================
+   ЖИРНЫЙ КОНТРАСТНЫЙ ДИЗАЙН
+   ============================================ */
+
+/* Заголовки — Playfair Display, крупные, жирные */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.block-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+}
+
+.hero-headline {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+
+.hero-tagline {
+    font-family: var(--font-main);
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.btn-hero {
+    font-family: var(--font-main);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.95rem;
+    padding: 1.1rem 2.5rem;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+}
+
+.btn-hero:hover {
+    background: #fff;
+    color: var(--primary-color);
+}
+
+/* Тёмные секции (чередование) */
+.block-dark {
+    background: var(--bg-dark);
+    color: #fff;
+}
+
+.block-dark .block-title,
+.block-dark .block-caption,
+.block-dark .service-card-title,
+.block-dark .service-card-text,
+.block-dark .service-card-num {
+    color: #fff;
+}
+
+.block-dark .service-card {
+    background: var(--bg-dark-alt);
+    border-color: rgba(255,255,255,0.08);
+}
+
+.block-dark .service-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 8px 32px rgba(14, 165, 233, 0.15);
+}
+
+.block-dark .service-card-num {
+    color: var(--accent-color);
+}
+
+.block-dark .block-line {
+    background: var(--accent-color);
+}
+
+/* Номера услуг — крупные и выразительные */
+.service-card-num {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    opacity: 0.2;
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.service-card-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+/* Hero overlay — более драматичный */
+.hero-overlay {
+    background: linear-gradient(180deg, rgba(12, 26, 46, 0.35) 0%, rgba(12, 26, 46, 0.75) 100%);
+}
+
+/* Кнопки — жирные, контрастные */
+.btn-primary {
+    font-family: var(--font-main);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+    border-radius: 0;
+    padding: 1rem 2.2rem;
+}
+
+.btn-large {
+    padding: 1.15rem 2.5rem;
+    font-size: 1rem;
+}
+
+/* Карточки — жирный стиль */
+.card-link {
+    border-radius: 0;
+    border: none;
+    box-shadow: var(--shadow-lg);
+}
+
+.card-link-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Advantage items — выразительнее */
+.advantage-text h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 2rem;
+}
+
+.step-text h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.65rem;
+}
+
+.level-header h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+}
+
+.project-header h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 2.2rem;
+}
+
+/* Секция page-header — жирнее */
+.page-header .block-title {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+/* CTA секция — контрастная */
+.cta-section h2 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 2.5rem;
+}
+
+.cta-section .btn-primary {
+    border: 2px solid #fff;
+    border-radius: 0;
+}
+
+/* Footer заголовки */
+.footer-links h4,
+.footer-contact h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.95rem;
+}
+
+/* Logo text — Playfair */
+.logo-text,
+.footer-brand .logo-footer-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+/* Навигация — uppercase для жирного стиля */
+.main-nav .nav-list a,
+.nav-menu a {
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Таблица — крупнее, акценты */
+.table-comparison {
+    font-size: 1.1rem;
+    border-radius: 0;
+    border: 2px solid var(--primary-color);
+}
+
+.table-comparison thead tr {
+    background: var(--bg-dark);
+}
+
+.table-comparison th {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 1.5rem 1.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.table-comparison td {
+    padding: 1.4rem 1.75rem;
+    font-size: 1.05rem;
+}
+
+.table-comparison .td-param {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.table-comparison .td-good {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.05rem;
+}
+
+.table-comparison .td-good::before {
+    width: 22px;
+    height: 22px;
+    font-size: 0.75rem;
+}
+
+/* Счётчики цифр — большие блоки на главной */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 2rem;
+}
+
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--accent-color);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+}
+
+/* Scroll-анимации */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-on-scroll.delay-1 { transition-delay: 0.1s; }
+.animate-on-scroll.delay-2 { transition-delay: 0.2s; }
+.animate-on-scroll.delay-3 { transition-delay: 0.3s; }
+.animate-on-scroll.delay-4 { transition-delay: 0.4s; }
+.animate-on-scroll.delay-5 { transition-delay: 0.5s; }
+.animate-on-scroll.delay-6 { transition-delay: 0.6s; }
+
+/* Параллакс hero */
+.hero-bg {
+    transition: transform 0.1s linear;
+    will-change: transform;
 }
 
 /* ============================================
