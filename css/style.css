@@ -1374,7 +1374,6 @@ table {
     border-spacing: 0;
     background-color: var(--bg-white);
     box-shadow: 0 3px 10px var(--shadow-light), 0 1px 4px rgba(0, 0, 0, 0.08);
-    /* Ручная настройка - скругленные углы */
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid rgba(212, 212, 212, 0.3);
@@ -1398,6 +1397,106 @@ table th {
 
 table tr:hover {
     background-color: var(--bg-light);
+}
+
+/* Большая красивая таблица сравнения */
+.comparison-table-large {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.table-comparison {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--bg-white);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    font-size: 1.05rem;
+}
+
+.table-comparison thead tr {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #075985 100%);
+}
+
+.table-comparison th {
+    padding: 1.4rem 1.5rem;
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    border-bottom: none;
+}
+
+.table-comparison .th-param {
+    width: 30%;
+}
+
+.table-comparison .th-3d {
+    width: 35%;
+    background: rgba(255,255,255,0.08);
+}
+
+.table-comparison .th-trad {
+    width: 35%;
+}
+
+.table-comparison td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+.table-comparison tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-comparison tbody tr:nth-child(even) {
+    background-color: #f8fcff;
+}
+
+.table-comparison tbody tr:hover {
+    background-color: #eef7ff;
+}
+
+.table-comparison .td-param {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+}
+
+.table-comparison .td-good {
+    color: var(--primary-color);
+    font-weight: 600;
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.table-comparison .td-good::before {
+    content: "\2713";
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.table-comparison .td-neutral {
+    color: var(--text-light);
 }
 
 /* ============================================
