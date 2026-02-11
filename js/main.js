@@ -326,138 +326,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// Scroll-анимации (reveal при прокрутке)
+// Анимация при прокрутке
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Элементы с классом animate-on-scroll
-    const scrollElements = document.querySelectorAll('.animate-on-scroll');
-    
-    // Автоматически добавляем класс к карточкам, блокам, и т.д.
-    const autoAnimateSelectors = [
-        '.advantage-card', '.link-card', '.step-item', '.advantage-item-large',
-        '.level-item', '.service-card', '.card-link', '.timeline-item',
-        '.finishing-item', '.custom-advantage-item', '.block-head',
-        '.stat-item', '.form-request', '.request-form',
-        '.project-slide.active .project-gallery', '.project-slide.active .project-description'
-    ];
-    
-    const autoAnimateElements = document.querySelectorAll(autoAnimateSelectors.join(', '));
-    
-    autoAnimateElements.forEach((el, i) => {
-        if (!el.classList.contains('animate-on-scroll')) {
-            el.classList.add('animate-on-scroll');
-            // Стаггер-задержка для элементов в сетках
-            const parent = el.parentElement;
-            if (parent) {
-                const siblings = Array.from(parent.children).filter(c => autoAnimateSelectors.some(s => c.matches && c.matches(s)));
-                const idx = siblings.indexOf(el);
-                if (idx > 0 && idx <= 6) {
-                    el.classList.add('delay-' + idx);
-                }
-            }
-        }
-    });
-    
-    // Все scroll-элементы
-    const allScrollElements = document.querySelectorAll('.animate-on-scroll');
-    
-    const scrollObserver = new IntersectionObserver(function(entries) {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                // Запускаем счётчик, если это stat-number
-                const counter = entry.target.querySelector('.stat-number[data-target]');
-                if (counter && !counter.dataset.counted) {
-                    animateCounter(counter);
-                    counter.dataset.counted = 'true';
-                }
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
-    }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -40px 0px'
+    }, observerOptions);
+
+    // Применяем анимацию к элементам
+    const animatedElements = document.querySelectorAll('.advantage-card, .link-card, .step-item, .advantage-item-large, .level-item');
+    
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
     });
-    
-    allScrollElements.forEach(el => scrollObserver.observe(el));
-});
-
-// ============================================
-// Счётчики цифр (анимация от 0 до target)
-// ============================================
-
-function animateCounter(el) {
-    const target = parseInt(el.dataset.target);
-    const suffix = el.dataset.suffix || '';
-    const text = el.dataset.text || '';
-    
-    if (text) {
-        el.textContent = text;
-        return;
-    }
-    
-    const duration = 2000;
-    const startTime = performance.now();
-    
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // easeOutExpo
-        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-        const current = Math.round(eased * target);
-        el.textContent = current + suffix;
-        
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-    }
-    
-    requestAnimationFrame(update);
-}
-
-// ============================================
-// Параллакс Hero
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    const heroBg = document.querySelector('.hero-bg');
-    
-    if (heroBg) {
-        let ticking = false;
-        
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                requestAnimationFrame(function() {
-                    const scrollY = window.pageYOffset;
-                    const heroHeight = heroBg.parentElement.offsetHeight;
-                    
-                    if (scrollY < heroHeight) {
-                        heroBg.style.transform = 'translateY(' + (scrollY * 0.3) + 'px) scale(1.05)';
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-    }
-});
-
-// ============================================
-// Навбар — тень при скролле
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    const header = document.querySelector('.site-header');
-    
-    if (header) {
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 50) {
-                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-            } else {
-                header.style.boxShadow = '0 1px 0 rgba(12, 74, 110, 0.06)';
-            }
-        });
-    }
 });
 
 // ============================================

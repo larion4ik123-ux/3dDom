@@ -7,7 +7,7 @@
     <title>Преимущества технологии — ДОМ 3Д</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -143,58 +143,126 @@
                 <h2 class="block-title">Сравнение с традиционным строительством.</h2>
                 <p class="block-caption">3D-печать против классики</p>
             </div>
-            <div class="table-wrapper comparison-table-large">
-                <table class="table-comparison">
-                    <thead>
-                        <tr>
-                            <th class="th-param">Параметр</th>
-                            <th class="th-3d">3D-печать</th>
-                            <th class="th-trad">Традиционное строительство</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="td-param">Скорость возведения стен</td>
-                            <td class="td-good">В 8-12 раз быстрее</td>
-                            <td class="td-neutral">Стандартные сроки</td>
-                        </tr>
-                        <tr>
-                            <td class="td-param">Теплоизоляция</td>
-                            <td class="td-good">Высокая, без утепления</td>
-                            <td class="td-neutral">Требуется утепление</td>
-                        </tr>
-                        <tr>
-                            <td class="td-param">Стоимость</td>
-                            <td class="td-good">Ниже на 15-25%</td>
-                            <td class="td-neutral">Стандартная</td>
-                        </tr>
-                        <tr>
-                            <td class="td-param">Архитектурная свобода</td>
-                            <td class="td-good">Любые формы</td>
-                            <td class="td-neutral">Ограничена</td>
-                        </tr>
-                        <tr>
-                            <td class="td-param">Точность</td>
-                            <td class="td-good">Высокая (автоматизация)</td>
-                            <td class="td-neutral">Зависит от мастерства</td>
-                        </tr>
-                        <tr>
-                            <td class="td-param">Прочность стен</td>
-                            <td class="td-good">Монолитная конструкция</td>
-                            <td class="td-neutral">Швы и стыки</td>
-                        </tr>
-                        <tr>
-                            <td class="td-param">Коммуникации</td>
-                            <td class="td-good">Внутри стен при печати</td>
-                            <td class="td-neutral">Отдельный этап работ</td>
-                        </tr>
-                        <tr>
-                            <td class="td-param">Человеческий фактор</td>
-                            <td class="td-good">Минимальный (автоматизация)</td>
-                            <td class="td-neutral">Высокий</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="compare-cards">
+                <div class="compare-card">
+                    <div class="compare-card-label">Скорость возведения стен</div>
+                    <div class="compare-card-row">
+                        <div class="compare-val compare-val--good">
+                            <span class="compare-tag">3D-печать</span>
+                            <span class="compare-text">В 8-12 раз быстрее</span>
+                        </div>
+                        <div class="compare-vs">VS</div>
+                        <div class="compare-val compare-val--neutral">
+                            <span class="compare-tag">Традиционное</span>
+                            <span class="compare-text">Стандартные сроки</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <div class="compare-card-label">Теплоизоляция</div>
+                    <div class="compare-card-row">
+                        <div class="compare-val compare-val--good">
+                            <span class="compare-tag">3D-печать</span>
+                            <span class="compare-text">Высокая, без утепления</span>
+                        </div>
+                        <div class="compare-vs">VS</div>
+                        <div class="compare-val compare-val--neutral">
+                            <span class="compare-tag">Традиционное</span>
+                            <span class="compare-text">Требуется утепление</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <div class="compare-card-label">Стоимость</div>
+                    <div class="compare-card-row">
+                        <div class="compare-val compare-val--good">
+                            <span class="compare-tag">3D-печать</span>
+                            <span class="compare-text">Ниже на 15-25%</span>
+                        </div>
+                        <div class="compare-vs">VS</div>
+                        <div class="compare-val compare-val--neutral">
+                            <span class="compare-tag">Традиционное</span>
+                            <span class="compare-text">Стандартная</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <div class="compare-card-label">Архитектурная свобода</div>
+                    <div class="compare-card-row">
+                        <div class="compare-val compare-val--good">
+                            <span class="compare-tag">3D-печать</span>
+                            <span class="compare-text">Любые формы</span>
+                        </div>
+                        <div class="compare-vs">VS</div>
+                        <div class="compare-val compare-val--neutral">
+                            <span class="compare-tag">Традиционное</span>
+                            <span class="compare-text">Ограничена</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <div class="compare-card-label">Точность строительства</div>
+                    <div class="compare-card-row">
+                        <div class="compare-val compare-val--good">
+                            <span class="compare-tag">3D-печать</span>
+                            <span class="compare-text">Высокая, автоматизация</span>
+                        </div>
+                        <div class="compare-vs">VS</div>
+                        <div class="compare-val compare-val--neutral">
+                            <span class="compare-tag">Традиционное</span>
+                            <span class="compare-text">Зависит от мастерства</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <div class="compare-card-label">Прочность стен</div>
+                    <div class="compare-card-row">
+                        <div class="compare-val compare-val--good">
+                            <span class="compare-tag">3D-печать</span>
+                            <span class="compare-text">Монолитная конструкция</span>
+                        </div>
+                        <div class="compare-vs">VS</div>
+                        <div class="compare-val compare-val--neutral">
+                            <span class="compare-tag">Традиционное</span>
+                            <span class="compare-text">Швы и стыки</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <div class="compare-card-label">Коммуникации</div>
+                    <div class="compare-card-row">
+                        <div class="compare-val compare-val--good">
+                            <span class="compare-tag">3D-печать</span>
+                            <span class="compare-text">Внутри стен при печати</span>
+                        </div>
+                        <div class="compare-vs">VS</div>
+                        <div class="compare-val compare-val--neutral">
+                            <span class="compare-tag">Традиционное</span>
+                            <span class="compare-text">Отдельный этап работ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="compare-card">
+                    <div class="compare-card-label">Человеческий фактор</div>
+                    <div class="compare-card-row">
+                        <div class="compare-val compare-val--good">
+                            <span class="compare-tag">3D-печать</span>
+                            <span class="compare-text">Минимальный</span>
+                        </div>
+                        <div class="compare-vs">VS</div>
+                        <div class="compare-val compare-val--neutral">
+                            <span class="compare-tag">Традиционное</span>
+                            <span class="compare-text">Высокий</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
