@@ -1378,33 +1378,38 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     background-color: var(--bg-white);
-    box-shadow: var(--shadow-md);
-    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    border-radius: 16px;
     overflow: hidden;
-    border: 1px solid var(--border-color);
+    border: none;
 }
 
 table th,
 table td {
-    padding: 1.2rem 1.5rem;
+    padding: 1.4rem 2rem;
     text-align: left;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 1.05rem;
+    border-bottom: 1px solid #e8f4fd;
+    font-size: 1.1rem;
+    line-height: 1.5;
 }
 
 table th {
     background-color: var(--primary-color);
     color: white;
     font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 1.3rem 1.5rem;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 1.5rem 2rem;
     text-align: left;
     letter-spacing: 0.03em;
 }
 
 table tbody tr:nth-child(even) {
-    background-color: var(--bg-light);
+    background-color: #f8fcff;
+}
+
+table tbody tr {
+    transition: background-color 0.2s ease;
 }
 
 table tr:hover {
@@ -1413,6 +1418,30 @@ table tr:hover {
 
 table tbody tr:last-child td {
     border-bottom: none;
+}
+
+/* Широкая таблица */
+.table-wide {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Акцентный столбец 3D-печати */
+.td-highlight {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Серый столбец традиционного */
+.td-dim {
+    color: var(--text-light);
+}
+
+/* Первый столбец — жирный */
+table tbody td:first-child {
+    font-weight: 600;
+    font-family: var(--font-heading);
+    color: var(--text-dark);
 }
 
 
