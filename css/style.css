@@ -1300,6 +1300,10 @@ section {
     font-size: 1.02rem;
 }
 
+.step-text p + p {
+    margin-top: 0.9rem;
+}
+
 .block.technology-video {
     padding: 4.5rem 0;
 }
