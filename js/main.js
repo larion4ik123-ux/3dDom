@@ -78,6 +78,10 @@ function sendToTelegram(formData) {
             };
             message += `*Уровень готовности:* ${readinessText[formData.readiness] || formData.readiness}\n`;
         }
+
+        if (formData.projectFileName) {
+            message += `*Файл проекта:* ${escapeMarkdown(formData.projectFileName)}\n`;
+        }
         
         message += `\n`;
     }
@@ -105,6 +109,31 @@ function sendToTelegram(formData) {
             disable_web_page_preview: true
         })
     });
+}
+
+function sendFileToTelegram(file) {
+    const maxSizeMb = 45;
+    if (file.size > maxSizeMb * 1024 * 1024) {
+        return Promise.reject(new Error(`Файл слишком большой. Максимум ${maxSizeMb} МБ`));
+    }
+
+    const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/sendDocument`;
+    const uploadData = new FormData();
+    uploadData.append('chat_id', TELEGRAM_CONFIG.CHAT_ID);
+    uploadData.append('caption', `Файл проекта: ${file.name}`);
+    uploadData.append('document', file, file.name);
+
+    return fetch(url, {
+        method: 'POST',
+        body: uploadData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.ok) {
+                throw new Error(data.description || 'Ошибка загрузки файла');
+            }
+            return data;
+        });
 }
 
 // Экранирование специальных символов для Markdown
@@ -238,6 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const phone = form.querySelector('[name="phone"]').value.trim();
             const email = form.querySelector('[name="email"]')?.value.trim() || '';
             const message = form.querySelector('[name="message"]')?.value.trim() || '';
+            const projectFile = form.querySelector('[name="project_file"]')?.files?.[0] || null;
 
             // Валидация
             if (!name) {
@@ -278,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (area) formData.area = area;
                 if (floors) formData.floors = floors;
                 if (readiness) formData.readiness = readiness;
+                if (projectFile) formData.projectFileName = projectFile.name;
             }
 
             // Отправка в Telegram
@@ -289,20 +320,28 @@ document.addEventListener('DOMContentLoaded', function() {
             sendToTelegram(formData)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.ok) {
-                        showMessage(form, 'Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', false);
-                        form.reset();
-                        // Дублирование заявки на почту через EmailJS (если настроено)
-                        sendEmailViaEmailJS(formData).catch(function() {});
-                        // Опционально: отправка события в аналитику
-                        if (typeof gtag !== 'undefined') {
-                            gtag('event', 'form_submit', {
-                                'event_category': 'engagement',
-                                'event_label': formName === 'custom' ? 'custom_project' : 'request'
-                            });
-                        }
-                    } else {
+                    if (!data.ok) {
                         throw new Error(data.description || 'Ошибка отправки');
+                    }
+                    return data;
+                })
+                .then(() => {
+                    if (formName === 'custom' && projectFile) {
+                        return sendFileToTelegram(projectFile);
+                    }
+                    return null;
+                })
+                .then(() => {
+                    showMessage(form, 'Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', false);
+                    form.reset();
+                    // Дублирование заявки на почту через EmailJS (если настроено)
+                    sendEmailViaEmailJS(formData).catch(function() {});
+                    // Опционально: отправка события в аналитику
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submit', {
+                            'event_category': 'engagement',
+                            'event_label': formName === 'custom' ? 'custom_project' : 'request'
+                        });
                     }
                 })
                 .catch(error => {
