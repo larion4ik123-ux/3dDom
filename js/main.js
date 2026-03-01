@@ -2,9 +2,18 @@
 // Конфигурация Telegram
 // ============================================
 const TELEGRAM_CONFIG = {
-    BOT_TOKEN: '8387598914:AAFEYBc7b_-1CC_drmUUyRNH0U48nCADMp4',
-    CHAT_ID: '-1003589311159'
+    BOT_TOKEN: (window.DOM3D_TELEGRAM_CONFIG && window.DOM3D_TELEGRAM_CONFIG.BOT_TOKEN) || '',
+    CHAT_ID: (window.DOM3D_TELEGRAM_CONFIG && window.DOM3D_TELEGRAM_CONFIG.CHAT_ID) || ''
 };
+
+function isTelegramConfigured() {
+    return Boolean(
+        TELEGRAM_CONFIG.BOT_TOKEN &&
+        TELEGRAM_CONFIG.CHAT_ID &&
+        !TELEGRAM_CONFIG.BOT_TOKEN.startsWith('YOUR_') &&
+        !TELEGRAM_CONFIG.CHAT_ID.startsWith('YOUR_')
+    );
+}
 
 // ============================================
 // Конфигурация EmailJS (отправка заявок на почту)
@@ -44,6 +53,10 @@ function sendEmailViaEmailJS(formData) {
 // Функция отправки в Telegram
 // ============================================
 function sendToTelegram(formData) {
+    if (!isTelegramConfigured()) {
+        return Promise.reject(new Error('Telegram не настроен. Укажите BOT_TOKEN и CHAT_ID в DOM3D_TELEGRAM_CONFIG.'));
+    }
+
     // Формирование сообщения в зависимости от типа формы
     let message = `*Новая заявка с сайта Home3D*\n\n`;
     
@@ -108,10 +121,21 @@ function sendToTelegram(formData) {
             parse_mode: 'Markdown',
             disable_web_page_preview: true
         })
-    });
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.ok) {
+                throw new Error(data.description || 'Ошибка отправки');
+            }
+            return data;
+        });
 }
 
 function sendFileToTelegram(file) {
+    if (!isTelegramConfigured()) {
+        return Promise.reject(new Error('Telegram не настроен. Укажите BOT_TOKEN и CHAT_ID в DOM3D_TELEGRAM_CONFIG.'));
+    }
+
     const maxSizeMb = 45;
     if (file.size > maxSizeMb * 1024 * 1024) {
         return Promise.reject(new Error(`Файл слишком большой. Максимум ${maxSizeMb} МБ`));
@@ -161,25 +185,56 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.querySelector('.nav-menu') || document.querySelector('.nav-list');
 
     if (mobileMenuToggle && navMenu) {
+        const closeMenu = () => {
+            navMenu.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('menu-open');
+        };
+
+        const openMenu = () => {
+            navMenu.classList.add('active');
+            mobileMenuToggle.classList.add('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('menu-open');
+        };
+
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+
         mobileMenuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            mobileMenuToggle.classList.toggle('active');
+            if (navMenu.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         });
 
         // Закрытие меню при клике на ссылку
         const navLinks = navMenu.querySelectorAll('a');
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
+                closeMenu();
             });
         });
 
         // Закрытие меню при клике вне его
         document.addEventListener('click', function(event) {
             if (!navMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
-                navMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
+                closeMenu();
+            }
+        });
+
+        // Закрытие по Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        // При выходе из мобильного брейкпоинта меню закрываем
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                closeMenu();
             }
         });
     }
@@ -324,22 +379,21 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.textContent = 'Отправка...';
 
             sendToTelegram(formData)
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.ok) {
-                        throw new Error(data.description || 'Ошибка отправки');
-                    }
-                    return data;
-                })
                 .then(() => {
                     if (formName === 'custom' && projectFile) {
-                        return sendFileToTelegram(projectFile);
+                        return sendFileToTelegram(projectFile)
+                            .then(() => ({ fileUploaded: true }))
+                            .catch(error => ({ fileUploaded: false, error }));
                     }
-                    return null;
+                    return { fileUploaded: null };
                 })
-                .then(() => {
-                    showMessage(form, 'Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', false);
-                    form.reset();
+                .then(result => {
+                    if (result.fileUploaded === false) {
+                        showMessage(form, 'Заявка отправлена, но файл не прикрепился. Проверьте формат/размер файла или отправьте его повторно.', true);
+                    } else {
+                        showMessage(form, 'Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.', false);
+                        form.reset();
+                    }
                     // Дублирование заявки на почту через EmailJS (если настроено)
                     sendEmailViaEmailJS(formData).catch(function() {});
                     // Опционально: отправка события в аналитику
@@ -352,7 +406,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(error => {
                     console.error('Ошибка отправки в Telegram:', error);
-                    showMessage(form, 'Ошибка отправки. Попробуйте позже или свяжитесь с нами по телефону.', true);
+                    if (error && error.message && error.message.includes('Telegram не настроен')) {
+                        showMessage(form, 'Форма временно недоступна: Telegram не настроен. Свяжитесь с нами по телефону.', true);
+                    } else {
+                        showMessage(form, 'Ошибка отправки. Попробуйте позже или свяжитесь с нами по телефону.', true);
+                    }
                 })
                 .finally(() => {
                     submitButton.disabled = false;
@@ -460,12 +518,19 @@ document.addEventListener('DOMContentLoaded', function() {
     initCustomVideoBlocks();
 
     function initImageLightbox() {
-        const images = Array.from(document.querySelectorAll('img'))
-            .filter(img =>
-                !img.classList.contains('logo-img') &&
-                !img.classList.contains('logo-footer-img') &&
-                img.closest('.image-lightbox') === null
-            );
+        const lightboxSelectors = [
+            '.card-link-img',
+            '.step-image',
+            '.advantage-image',
+            '.level-image',
+            '.gallery-main-image',
+            '.thumbnail-image',
+            '.link-image',
+            '.timeline-image',
+            '.finishing-image'
+        ];
+
+        const images = Array.from(document.querySelectorAll(lightboxSelectors.join(', ')));
 
         if (!images.length) return;
 
@@ -482,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const closeLightbox = () => {
             lightbox.classList.remove('open');
-            document.body.style.overflow = '';
+            document.body.classList.remove('lightbox-open');
             lightboxImg.src = '';
             lightboxImg.alt = '';
         };
@@ -497,7 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 lightboxImg.src = img.currentSrc || img.src;
                 lightboxImg.alt = img.alt || 'Изображение';
                 lightbox.classList.add('open');
-                document.body.style.overflow = 'hidden';
+                document.body.classList.add('lightbox-open');
             });
         });
 

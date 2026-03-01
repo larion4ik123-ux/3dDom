@@ -13,6 +13,7 @@
     /* Белый, голубой, синий — современный стиль под архитектуру/строительство */
     --primary-color: #0c4a6e;
     --primary-hover: #075985;
+    --secondary-color: #0369a1;
     --accent-color: #0ea5e9;
     --text-dark: #0f172a;
     --text-light: #64748b;
@@ -3411,6 +3412,11 @@ h1, h2, h3, h4, h5, h6 {
 /* Финальные mobile-правки */
 body {
     overflow-x: hidden;
+}
+
+body.menu-open,
+body.lightbox-open {
+    overflow: hidden;
 }
 
 @media (max-width: 768px) {
