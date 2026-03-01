@@ -457,6 +457,23 @@ body {
     grid-template-columns: repeat(2, 1fr);
 }
 
+.cards-two-caption {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: -1rem 0 0.9rem;
+}
+
+.cards-two-caption p {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    letter-spacing: 0.02em;
+    text-align: center;
+    margin: 0;
+}
+
 .card-link {
     display: block;
     text-decoration: none;
@@ -737,6 +754,18 @@ body {
 
     .cards-two {
         grid-template-columns: 1fr;
+    }
+
+    .cards-two-caption {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+        margin-top: -0.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .cards-two-caption p {
+        text-align: left;
+        font-size: 0.92rem;
     }
 
     .block-head {
