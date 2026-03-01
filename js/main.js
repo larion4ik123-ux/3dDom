@@ -458,7 +458,6 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     initImageLightbox();
     initCustomVideoBlocks();
-    initBeforeAfterSlider();
 
     function initImageLightbox() {
         const images = Array.from(document.querySelectorAll('img'))
@@ -541,19 +540,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function initBeforeAfterSlider() {
-        const sliders = document.querySelectorAll('[data-before-after]');
-
-        sliders.forEach(slider => {
-            const range = slider.querySelector('.before-after-range');
-            if (!range) return;
-
-            const updateSplit = () => {
-                slider.style.setProperty('--split', `${range.value}%`);
-            };
-
-            updateSplit();
-            range.addEventListener('input', updateSplit);
-        });
-    }
 });
