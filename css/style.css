@@ -1364,6 +1364,258 @@ section {
     background: #000;
 }
 
+.video-custom {
+    position: absolute;
+    inset: 0;
+}
+
+.video-custom .video-player {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000;
+}
+
+.video-play-btn {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: linear-gradient(145deg, #38bdf8 0%, #0ea5e9 38%, #0369a1 100%);
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 14px 34px rgba(3, 105, 161, 0.45), 0 0 0 3px rgba(255, 255, 255, 0.16) inset;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    overflow: visible;
+    animation: playPulse 2.2s ease-out infinite;
+}
+
+.video-play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 18px 38px rgba(3, 105, 161, 0.56), 0 0 0 3px rgba(255, 255, 255, 0.22) inset;
+    filter: saturate(1.08) brightness(1.04);
+}
+
+.video-play-btn span {
+    position: relative;
+    left: 2px;
+    font-size: 1.9rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.video-play-btn::before,
+.video-play-btn::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(56, 189, 248, 0.45);
+    pointer-events: none;
+}
+
+.video-play-btn::before {
+    animation: playRing 2.2s ease-out infinite;
+}
+
+.video-play-btn::after {
+    animation: playRing 2.2s ease-out 1.1s infinite;
+}
+
+.video-custom.playing .video-play-btn {
+    opacity: 0;
+    pointer-events: none;
+    animation: none;
+}
+
+@keyframes playPulse {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    45% {
+        transform: translate(-50%, -50%) scale(1.045);
+    }
+}
+
+@keyframes playRing {
+    0% {
+        transform: scale(0.88);
+        opacity: 0.85;
+    }
+    70% {
+        transform: scale(1.26);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* Слайдер до/после */
+.before-after-section {
+    border-top: 1px solid var(--border-color);
+}
+
+.before-after {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 1100px;
+    aspect-ratio: 16/9;
+    margin: 0 auto;
+    box-shadow: var(--shadow-lg);
+    --split: 50%;
+}
+
+.before-after-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: var(--image-unify-filter);
+    user-select: none;
+    pointer-events: none;
+}
+
+.before-after .after-wrap {
+    position: absolute;
+    inset: 0;
+    width: var(--split);
+    overflow: hidden;
+    border-right: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.before-after-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    z-index: 3;
+}
+
+.before-after-handle {
+    position: absolute;
+    top: 50%;
+    left: var(--split);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--primary-color);
+    transform: translate(-50%, -50%);
+    box-shadow: var(--shadow-md);
+    z-index: 2;
+}
+
+.before-after-handle::before,
+.before-after-handle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+}
+
+.before-after-handle::before {
+    left: 10px;
+    transform: translateY(-50%) rotate(-135deg);
+}
+
+.before-after-handle::after {
+    right: 10px;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.before-after-label {
+    position: absolute;
+    top: 16px;
+    z-index: 2;
+    background: rgba(15, 23, 42, 0.65);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+}
+
+.before-after-label.before-label {
+    left: 16px;
+}
+
+.before-after-label.after-label {
+    right: 16px;
+}
+
+/* Лайтбокс изображений */
+.lightbox-target {
+    cursor: zoom-in;
+}
+
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgba(15, 23, 42, 0.88);
+    z-index: 3000;
+}
+
+.image-lightbox.open {
+    display: flex;
+}
+
+.image-lightbox img {
+    max-width: min(1200px, 96vw);
+    max-height: 86vh;
+    border-radius: 10px;
+    box-shadow: var(--shadow-xl);
+}
+
+.image-lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* Улучшения формы */
+.form-help {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.file-selected-name {
+    margin-top: 0.45rem;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    min-height: 1.2em;
+}
+
 /* ============================================
    Преимущества детальные
    ============================================ */
@@ -3264,5 +3516,22 @@ h1, h2, h3, h4, h5, h6 {
     
     .project-description {
         font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-play-btn {
+        width: 68px;
+        height: 68px;
+        font-size: 1.7rem;
+    }
+
+    .before-after {
+        aspect-ratio: 4/3;
+    }
+
+    .before-after-handle {
+        width: 36px;
+        height: 36px;
     }
 }

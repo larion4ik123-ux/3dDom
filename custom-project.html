@@ -179,6 +179,8 @@
                 <div class="form-group">
                     <label for="custom-project-file">Файл проекта (план, эскиз, ТЗ)</label>
                     <input type="file" id="custom-project-file" name="project_file" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp,.dwg,.dxf,.zip,.rar">
+                    <small class="form-help">Допустимые форматы: PDF, DOC, JPG, PNG, DWG, DXF, ZIP, RAR. Максимум: 45 МБ.</small>
+                    <div id="custom-project-file-name" class="file-selected-name" aria-live="polite"></div>
                 </div>
                 <button type="submit" class="btn-primary btn-large">Отправить заявку</button>
             </form>

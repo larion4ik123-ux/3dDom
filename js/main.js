@@ -268,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = form.querySelector('[name="email"]')?.value.trim() || '';
             const message = form.querySelector('[name="message"]')?.value.trim() || '';
             const projectFile = form.querySelector('[name="project_file"]')?.files?.[0] || null;
+            const maxFileSizeMb = 45;
 
             // Валидация
             if (!name) {
@@ -287,6 +288,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (email && !validateEmail(email)) {
                 showMessage(form, 'Пожалуйста, укажите корректный email', true);
+                return;
+            }
+
+            if (formName === 'custom' && projectFile && projectFile.size > maxFileSizeMb * 1024 * 1024) {
+                showMessage(form, `Файл слишком большой. Максимум ${maxFileSizeMb} МБ`, true);
                 return;
             }
 
@@ -360,6 +366,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (customProjectForm) {
+        const projectFileInput = customProjectForm.querySelector('#custom-project-file');
+        const projectFileName = customProjectForm.querySelector('#custom-project-file-name');
+
+        if (projectFileInput && projectFileName) {
+            projectFileInput.addEventListener('change', function() {
+                const selectedFile = projectFileInput.files?.[0];
+                projectFileName.textContent = selectedFile ? `Выбран файл: ${selectedFile.name}` : '';
+            });
+        }
+
         handleFormSubmit(customProjectForm, 'custom');
     }
 });
@@ -434,4 +450,110 @@ document.addEventListener('DOMContentLoaded', function() {
             e.target.value = formattedValue;
         });
     });
+});
+
+// ============================================
+// Лайтбокс, кастомное видео и слайдер до/после
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    initImageLightbox();
+    initCustomVideoBlocks();
+    initBeforeAfterSlider();
+
+    function initImageLightbox() {
+        const images = Array.from(document.querySelectorAll('img'))
+            .filter(img =>
+                !img.classList.contains('logo-img') &&
+                !img.classList.contains('logo-footer-img') &&
+                img.closest('.image-lightbox') === null
+            );
+
+        if (!images.length) return;
+
+        const lightbox = document.createElement('div');
+        lightbox.className = 'image-lightbox';
+        lightbox.innerHTML = `
+            <button type="button" class="image-lightbox-close" aria-label="Закрыть">×</button>
+            <img src="" alt="">
+        `;
+        document.body.appendChild(lightbox);
+
+        const lightboxImg = lightbox.querySelector('img');
+        const closeBtn = lightbox.querySelector('.image-lightbox-close');
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
+            lightboxImg.alt = '';
+        };
+
+        images.forEach(img => {
+            img.classList.add('lightbox-target');
+            img.addEventListener('click', function(event) {
+                const parentLink = img.closest('a');
+                if (parentLink) {
+                    event.preventDefault();
+                }
+                lightboxImg.src = img.currentSrc || img.src;
+                lightboxImg.alt = img.alt || 'Изображение';
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeBtn.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', function(event) {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && lightbox.classList.contains('open')) {
+                closeLightbox();
+            }
+        });
+    }
+
+    function initCustomVideoBlocks() {
+        const videoBlocks = document.querySelectorAll('[data-video-custom]');
+
+        videoBlocks.forEach(block => {
+            const video = block.querySelector('video');
+            const playButton = block.querySelector('.video-play-btn');
+
+            if (!video || !playButton) return;
+
+            playButton.addEventListener('click', function() {
+                video.controls = true;
+                block.classList.add('playing');
+
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {
+                        block.classList.remove('playing');
+                        video.controls = false;
+                    });
+                }
+            });
+        });
+    }
+
+    function initBeforeAfterSlider() {
+        const sliders = document.querySelectorAll('[data-before-after]');
+
+        sliders.forEach(slider => {
+            const range = slider.querySelector('.before-after-range');
+            if (!range) return;
+
+            const updateSplit = () => {
+                slider.style.setProperty('--split', `${range.value}%`);
+            };
+
+            updateSplit();
+            range.addEventListener('input', updateSplit);
+        });
+    }
 });
