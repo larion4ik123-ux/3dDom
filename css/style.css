@@ -3505,3 +3505,75 @@ body.lightbox-open {
         height: 2.5px;
     }
 }
+
+/* Главная (mobile): полная переработка hero без растяжения */
+@media (max-width: 768px) {
+    .hero-full {
+        display: block;
+        min-height: auto;
+        aspect-ratio: auto;
+        padding: 0 0 1.1rem;
+        background: #f8fbff;
+        overflow: hidden;
+    }
+
+    .hero-bg {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        min-height: 220px;
+        aspect-ratio: 16/9;
+        background-size: contain;
+        background-position: center top;
+        background-color: #0f172a;
+    }
+
+    .hero-overlay {
+        display: none;
+    }
+
+    .hero-inner {
+        color: var(--text-dark);
+        text-align: left;
+        padding-top: 1rem;
+        padding-bottom: 0.4rem;
+    }
+
+    .hero-line {
+        margin: 0 0 0.9rem;
+        background: var(--primary-color);
+    }
+
+    .hero-headline {
+        color: var(--text-dark);
+        font-size: 1.55rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .hero-tagline {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        max-width: none;
+        margin: 0 0 1rem;
+        padding: 0;
+    }
+
+    .btn-hero {
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-bg {
+        min-height: 190px;
+        aspect-ratio: 4/3;
+    }
+
+    .hero-headline {
+        font-size: 1.35rem;
+    }
+
+    .hero-tagline {
+        font-size: 0.9rem;
+    }
+}
