@@ -475,6 +475,10 @@ body {
     margin: 0;
 }
 
+.card-mobile-caption {
+    display: none;
+}
+
 .card-link {
     display: block;
     text-decoration: none;
@@ -3508,72 +3512,213 @@ body.lightbox-open {
 
 /* Главная (mobile): полная переработка hero без растяжения */
 @media (max-width: 768px) {
-    .hero-full {
+    .site-header .container {
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
+    }
+
+    .header-inner {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        column-gap: 10px;
+    }
+
+    .logo {
+        min-width: 94px;
+        justify-self: start;
+    }
+
+    .mobile-menu-toggle {
+        justify-self: end;
+        margin-left: 0;
+    }
+
+    .cards-two-caption {
+        display: none;
+    }
+
+    .card-mobile-caption {
         display: block;
+        font-family: var(--font-heading);
+        font-size: 0.96rem;
+        font-weight: 600;
+        color: var(--text-light);
+        letter-spacing: 0.02em;
+        padding: 0.85rem 1rem 0.6rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-link-title {
+        display: none;
+    }
+
+    .hero-full {
+        position: relative;
         min-height: auto;
-        aspect-ratio: auto;
-        padding: 0 0 1.1rem;
-        background: #f8fbff;
+        padding: 0;
+        background: transparent;
         overflow: hidden;
     }
 
     .hero-bg {
         position: relative;
-        inset: auto;
+        inset: 0;
         width: 100%;
-        min-height: 220px;
-        aspect-ratio: 16/9;
-        background-size: contain;
-        background-position: center top;
-        background-color: #0f172a;
+        min-height: clamp(230px, 54vw, 320px);
+        aspect-ratio: auto;
+        background-size: cover;
+        background-position: center;
+        background-color: #0b1220;
     }
 
     .hero-overlay {
-        display: none;
+        display: block;
+        background: linear-gradient(
+            180deg,
+            rgba(15, 23, 42, 0.2) 0%,
+            rgba(15, 23, 42, 0.48) 70%,
+            rgba(15, 23, 42, 0.62) 100%
+        );
     }
 
     .hero-inner {
-        color: var(--text-dark);
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        color: #fff;
         text-align: left;
-        padding-top: 1rem;
-        padding-bottom: 0.4rem;
+        padding: 0 16px 14px;
     }
 
     .hero-line {
-        margin: 0 0 0.9rem;
-        background: var(--primary-color);
+        margin: 0 0 0.7rem;
+        background: rgba(255, 255, 255, 0.95);
     }
 
     .hero-headline {
-        color: var(--text-dark);
-        font-size: 1.55rem;
-        margin-bottom: 0.6rem;
+        color: #fff;
+        font-size: 1.7rem;
+        margin-bottom: 0.45rem;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
     }
 
     .hero-tagline {
-        color: var(--text-light);
-        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.92rem;
         max-width: none;
-        margin: 0 0 1rem;
+        margin: 0 0 0.85rem;
         padding: 0;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.22);
     }
 
     .btn-hero {
         width: auto;
+        padding: 0.72rem 1.1rem;
+        font-size: 0.86rem;
     }
 }
 
 @media (max-width: 480px) {
     .hero-bg {
-        min-height: 190px;
-        aspect-ratio: 4/3;
+        min-height: clamp(210px, 62vw, 280px);
     }
 
     .hero-headline {
-        font-size: 1.35rem;
+        font-size: 1.44rem;
     }
 
     .hero-tagline {
+        font-size: 0.86rem;
+    }
+
+    .hero-inner {
+        padding: 0 12px 12px;
+    }
+
+    .card-mobile-caption {
+        padding: 0.75rem 0.85rem 0.55rem;
         font-size: 0.9rem;
+    }
+}
+
+/* Mobile fix: страница преимуществ + таблица в экран */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 1rem 0 0.9rem;
+    }
+
+    .page-header-title {
+        margin-bottom: 0.3rem;
+        font-size: 1.4rem;
+        line-height: 1.25;
+    }
+
+    .page-header-sub {
+        font-size: 0.9rem;
+        line-height: 1.45;
+    }
+
+    .comparison-table {
+        padding: 1.1rem 0;
+    }
+
+    .comparison-table .block-head {
+        margin-bottom: 0.9rem;
+    }
+
+    .comparison-table .table-wrapper {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    .comparison-table table {
+        width: 100%;
+        max-width: 100%;
+        table-layout: fixed;
+        border-radius: 12px;
+    }
+
+    .comparison-table table th,
+    .comparison-table table td {
+        padding: 0.58rem 0.42rem;
+        font-size: 0.82rem;
+        line-height: 1.4;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+
+    .comparison-table table th:nth-child(1),
+    .comparison-table table td:nth-child(1) {
+        width: 34%;
+    }
+
+    .comparison-table table th:nth-child(2),
+    .comparison-table table td:nth-child(2) {
+        width: 33%;
+    }
+
+    .comparison-table table th:nth-child(3),
+    .comparison-table table td:nth-child(3) {
+        width: 33%;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 0.75rem 0 0.7rem;
+    }
+
+    .comparison-table .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .comparison-table table {
+        min-width: 0;
     }
 }
