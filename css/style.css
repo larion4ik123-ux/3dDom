@@ -110,7 +110,7 @@ body {
 }
 
 .logo-img {
-    height: 48px;
+    height: 60px;
     width: auto;
     display: block;
     object-fit: contain;
@@ -651,11 +651,23 @@ body {
 }
 
 .footer-brand .logo-footer-img {
-    height: 44px;
+    height: 56px;
     width: auto;
     display: block;
     object-fit: contain;
     filter: brightness(0) invert(1);
+}
+
+.site-header {
+    isolation: isolate;
+}
+
+.header-inner,
+.main-nav,
+.main-nav .nav-list,
+.main-nav .nav-list a {
+    position: relative;
+    z-index: 2;
 }
 
 .footer-brand .logo-footer-text {
@@ -1442,6 +1454,19 @@ section {
 .video-custom.playing .video-play-btn {
     opacity: 0;
     pointer-events: none;
+}
+
+.video-fallback-link {
+    margin-top: 0.85rem;
+    font-size: 0.92rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.video-fallback-link a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 /* Лайтбокс изображений */
@@ -3348,7 +3373,7 @@ h1, h2, h3, h4, h5, h6 {
     
     /* Логотип */
     .logo-img {
-        height: 32px;
+        height: 38px;
     }
     
     .logo-text {
@@ -3430,7 +3455,7 @@ body.lightbox-open {
     }
 
     .logo-img {
-        height: 36px;
+        height: 42px;
     }
 
     .main-nav .nav-list {
@@ -3491,7 +3516,7 @@ body.lightbox-open {
     }
 
     .logo-img {
-        height: 32px;
+        height: 36px;
     }
 
     .main-nav .nav-list {

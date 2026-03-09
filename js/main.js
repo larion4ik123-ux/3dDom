@@ -212,7 +212,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Закрытие меню при клике на ссылку
         const navLinks = navMenu.querySelectorAll('a');
         navLinks.forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function(event) {
+                const href = this.getAttribute('href') || '';
+                // Если на странице нет #request-form, но ссылка якорная — уводим на главную
+                if (href === '#request-form' && !document.getElementById('request-form')) {
+                    event.preventDefault();
+                    window.location.href = 'index.html#request-form';
+                    closeMenu();
+                    return;
+                }
                 closeMenu();
             });
         });
@@ -590,6 +598,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!video || !playButton) return;
 
+            video.addEventListener('error', function() {
+                playButton.style.display = 'none';
+            });
+
             playButton.addEventListener('click', function() {
                 video.controls = true;
                 block.classList.add('playing');
@@ -599,6 +611,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     playPromise.catch(() => {
                         block.classList.remove('playing');
                         video.controls = false;
+                        playButton.style.display = 'none';
                     });
                 }
             });
